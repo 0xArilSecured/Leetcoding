@@ -1,17 +1,17 @@
 class Solution:
     def gcdOfStrings(self, str1: str, str2: str) -> str:
-        i = len(str1)
-        j = len(str2)
+        len1, len2 = len(str1), len(str2)
+        shortestLength = min(len1, len2)
 
-        minimumValue = min(i, j)
-
-        def isDivisor(l):
-            if i % l or j % l:
+        # isDivisor ngecek modulo dan faktor
+        def isDivisor(i):
+            if len1 % i or len2 % i:
                 return False
-            factor1, factor2 = i // l, j // l
-            return str1[:l] * factor1 == str1 and str1[:l] * factor2 == str2
+            factor1, factor2 = len1 // i, len2 // i
+            subset = str1[:i]
+            return subset * factor1 == str1 and subset * factor2 == str2
 
-        for l in range(minimumValue, 0, -1):
-            if isDivisor(l):
-                return str1[:l]
+        for i in range(shortestLength, 0, -1):
+            if isDivisor(i):
+                return str1[:i]
         return ""
